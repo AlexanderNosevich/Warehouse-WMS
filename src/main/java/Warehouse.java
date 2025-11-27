@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse {
@@ -60,4 +61,27 @@ public class Warehouse {
     public List<Product> findByCategory(String category) {
         return productDAO.findByCategory(category);
     }
+
+    public Product getById(int id) {
+        return productDAO.getById(id);
+    }
+
+    public void sellProduct(int id, int quantity) {
+        String sql = "SELECT * FROM products WHERE id = ?";
+        Product product = getById(id);
+        if (product == null) {
+            System.out.println("Товар не найден");
+            return;
+        } if (product.getStock()<quantity) {
+            System.out.println("На складе не хватает товаров");
+            return;
+        }
+
+        int newStock = product.getStock() - quantity;
+        product.setStock(newStock);
+        productDAO.update(product);
+        System.out.println("Товар успешно продан");
+
+    }
+
 }

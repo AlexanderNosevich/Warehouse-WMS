@@ -15,6 +15,7 @@ public class Main {
             System.out.println("4. Изменить товар (Update)");
             System.out.println("5. Общая стоимость склада");
             System.out.println("6. Поиск по категории");
+            System.out.println("7. Продать товар");
             System.out.println("0. Выход");
             System.out.print("Выберите действие: ");
 
@@ -88,6 +89,14 @@ public class Main {
                         System.out.printf("%d | %s | %s | %.2f | %d%n",
                                 p.getId(), p.getName(), p.getCategory(), p.getPrice(), p.getStock());
                     }
+                }
+                case "7" -> {
+                    System.out.println("Меню продажи товаров");
+                    System.out.print("Введите ID товара для поиска: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Введите количество товара");
+                    int quantity = Integer.parseInt(scanner.nextLine());
+                    warehouse.sellProduct(id ,quantity);
                 }
                 case "0" -> {
                     System.out.println("Выход...");
