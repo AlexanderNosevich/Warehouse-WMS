@@ -8,6 +8,31 @@ public class ProductDAO {
     private static final String USER = "postgres";
     private static final String PASSWORD = "root"; //
 
+
+    public void createTable() {
+
+        // """ - позволяет писать многострочный текст
+        //SERIAL - авто-увеличение ID в postgres
+        String sql = """
+                CREATE TABLE IF NOT EXISTS
+                products (
+                        id SERIAL PRIMARY KEY,
+                        name VARCHAR(200) NOT NULL,
+                        category VARCHAR(100),
+                        price DOUBLE PRECISION,
+                        stock INT
+                        );
+                """;
+        try (Connection connection = ConnectionManager.open();
+            Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+            System.out.println("Проверка завершена! Таблица уже существует или создана");
+        } catch (SQLException e) {
+            System.out.println("Ошибка при создании таблицы");
+            e.printStackTrace();
+        }
+    }
+
     // Метод для добавления товара в БД
     public void save(Product product) {
         String sql = "INSERT INTO products (name, category, price, stock) VALUES (?, ?, ?, ?)";
@@ -40,6 +65,9 @@ public class ProductDAO {
         }
 
     }
+
+
+
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM products";
@@ -162,7 +190,17 @@ public class ProductDAO {
         return results;
     }
 
-
+    public void dropTable() {
+        String sql = "DROP TABLE IF EXISTS products";
+        try (Connection connection = ConnectionManager.open();
+             Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+            System.out.println("Таблица удалена!");
+        } catch (SQLException e) {
+            System.out.println("Ошибка при удалении");
+            e.printStackTrace();
+        }
+    }
 
 }
 

@@ -3,6 +3,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        ProductDAO daoForInit = new ProductDAO();
+
+        //daoForInit.dropTable();
+
+        daoForInit.createTable();
+
         // Инициализируем склад (он внутри уже подключен к БД через ProductDAO)
         Warehouse warehouse = new Warehouse();
         Scanner scanner = new Scanner(System.in);
