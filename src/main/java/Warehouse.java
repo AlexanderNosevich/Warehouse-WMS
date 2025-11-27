@@ -66,22 +66,26 @@ public class Warehouse {
         return productDAO.getById(id);
     }
 
-    public void sellProduct(int id, int quantity) {
+    public void sellProduct(int id, int quantityToSell) {
         String sql = "SELECT * FROM products WHERE id = ?";
         Product product = getById(id);
         if (product == null) {
             System.out.println("Товар не найден");
             return;
-        } if (product.getStock()<quantity) {
+        } if (product.getStock()<quantityToSell) {
             System.out.println("На складе не хватает товаров");
             return;
         }
 
-        int newStock = product.getStock() - quantity;
+        int newStock = product.getStock() - quantityToSell;
         product.setStock(newStock);
         productDAO.update(product);
-        System.out.println("Товар успешно продан");
+
+        productDAO.saveSale(id, quantityToSell);
+        System.out.println("Продано " + quantityToSell + " шт. Запись занесена в журнал");
 
     }
+
+
 
 }

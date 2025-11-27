@@ -4,10 +4,8 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
-    // Настройки твоей базы данных
-    // Если у тебя порт не 5432, поменяй
-    // Если база называется не postgres, поменяй
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+
+    private static final String URL = "jdbc:postgresql://localhost:5432/warehouse_db";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "root"; // <--- Впиши сюда свой пароль от Postgres
 

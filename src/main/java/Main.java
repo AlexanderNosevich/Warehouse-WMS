@@ -6,7 +6,7 @@ public class Main {
 
         ProductDAO daoForInit = new ProductDAO();
 
-        //daoForInit.dropTable();
+       // daoForInit.dropTable();
 
         daoForInit.createTable();
 
